@@ -14,5 +14,6 @@ namespace api.Data
             
         }
         public DbSet<Directors> Directors { set; get; }
+        public DbSet<Movies> Movies { get; set; }
     }
 }
