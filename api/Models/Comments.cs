@@ -12,9 +12,9 @@ namespace api.Models
         public int Id { get; set; }
         public string Content { get; set; } = string.Empty;
         public DateTime CreateOn { get; set; } = DateTime.Now;
-        [Column(TypeName = "decimal(1,1)")]
+        [Column(TypeName = "decimal(2,1)")]
         public decimal Score { get; set; }
-        public int? MovieId { get; set; }
-        public Movies? Movie { get; set; }
+        public int? MoviesId { get; set; }
+        public Movies? Movies { get; set; }
     }
 }

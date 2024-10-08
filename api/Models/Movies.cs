@@ -13,12 +13,11 @@ namespace api.Models
         public string Genre { get; set; } = string.Empty;
         public string Country { get; set;} = string.Empty;
         public DateTime CreatedOn { get; set; }
-        [Column(TypeName = "decimal(1,1)")]
+        [Column(TypeName = "decimal(2,1)")]
         public decimal IMDB { get; set; }
-        public int? DirectorId { set; get; }
+        public int? DirectorsId { set; get; }
         public Directors? Directors { get; set;}
         public List<Comments> Comments { get; set; } = new List<Comments>();
         public List<Actors> Actors { get; set; } = new List<Actors>();
-        public List<MoviesActors> MoviesActors { get; set; }
     }
 }
