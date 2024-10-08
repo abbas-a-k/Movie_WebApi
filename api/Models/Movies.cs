@@ -15,7 +15,7 @@ namespace api.Models
         public DateTime CreatedOn { get; set; }
         [Column(TypeName = "decimal(1,1)")]
         public decimal IMDB { get; set; }
-        public int? DirectorsId { set; get; }
+        public int? DirectorId { set; get; }
         public Directors? Directors { get; set;}
         // Not stored in the database
         //public decimal InternalScore { get; set; }
