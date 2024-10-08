@@ -19,5 +19,6 @@ namespace api.Models
         public Directors? Directors { get; set;}
         public List<Comments> Comments { get; set; } = new List<Comments>();
         public List<Actors> Actors { get; set; } = new List<Actors>();
+        public List<MoviesActors> MoviesActors { get; set; }
     }
 }
