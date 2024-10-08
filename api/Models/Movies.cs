@@ -17,9 +17,7 @@ namespace api.Models
         public decimal IMDB { get; set; }
         public int? DirectorId { set; get; }
         public Directors? Directors { get; set;}
-        // Not stored in the database
-        //public decimal InternalScore { get; set; }
-        //public List<Comments> Comments { get; set; }
-        //public List<Actors> Actors { get; set; }   
+        public List<Comments> Comments { get; set; } = new List<Comments>();
+        public List<Actors> Actors { get; set; } = new List<Actors>();
     }
 }

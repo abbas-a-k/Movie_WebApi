@@ -15,7 +15,6 @@ namespace api.Models
         public bool Alive { get; set; } = true;
         public string BirthPlace { get; set; } = string.Empty;
         public string About { get; set;} = string.Empty;
-        // Not stored in the database
-        //public List<Movies> MyProperty { get; set; }
+        public List<Movies> DirectorMovies { get; set; } = new List<Movies>();
     }
 }
