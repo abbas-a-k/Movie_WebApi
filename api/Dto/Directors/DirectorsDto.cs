@@ -1,20 +1,18 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 
-namespace api.Models
+namespace api.Dto.directors
 {
-    public class Directors
+    public class DirectorsDto
     {
-        public int Id { get; set; }
         public string ImageUrl { set; get; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public int Age { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; } = string.Empty;
         public bool Alive { get; set; } = true;
         public string BirthPlace { get; set; } = string.Empty;
         public string About { get; set;} = string.Empty;
-        public List<Movies> Movies { get; set; } = new List<Movies>();
     }
 }
