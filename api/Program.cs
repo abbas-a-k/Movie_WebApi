@@ -20,10 +20,10 @@ builder.Services.AddDbContext<ApplicationDBContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-
 builder.Services.AddScoped<IDirectorsRepository,DirectorsRepository>();
 builder.Services.AddScoped<IActorsRepository,ActorsRepository>();
 builder.Services.AddScoped<IMoviesRepository,MoviesRepository>();
+builder.Services.AddScoped<ICommetnsRepository,CommentsRepository>();
 
 var app = builder.Build();
 
