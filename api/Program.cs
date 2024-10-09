@@ -22,6 +22,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options => {
 
 
 builder.Services.AddScoped<IDirectorsRepository,DirectorsRepository>();
+builder.Services.AddScoped<IActorsRepository,ActorsRepository>();
 
 var app = builder.Build();
 
