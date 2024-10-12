@@ -12,7 +12,7 @@ namespace api.Models
         public string Name { get; set; } = string.Empty;
         public string Genre { get; set; } = string.Empty;
         public string Country { get; set;} = string.Empty;
-        public DateTime CreatedOn { get; set; }
+        public DateTime ReleasedIn { get; set; }
         [Column(TypeName = "decimal(2,1)")]
         public decimal IMDB { get; set; }
         public int? DirectorsId { set; get; }

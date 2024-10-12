@@ -10,7 +10,7 @@ namespace api.Dto.Movies
         public string Name { get; set; } = string.Empty;
         public string Genre { get; set; } = string.Empty;
         public string Country { get; set;} = string.Empty;
-        public string CreatedOn { get; set; } = string.Empty;
+        public string ReleasedIn { get; set; } = string.Empty;
         public decimal IMDB { get; set; }
     }
 }

@@ -16,10 +16,10 @@ namespace api.Mapper
                 Name = moviesModel.Name,
                 Genre = moviesModel.Genre,
                 Country = moviesModel.Country,
-                CreatedOn = string
-                .Format("{0}/{1}/{2}", moviesModel.CreatedOn.Month
-                , moviesModel.CreatedOn.Day
-                ,moviesModel.CreatedOn.Year),
+                ReleasedIn = string
+                .Format("{0}/{1}/{2}", moviesModel.ReleasedIn.Month
+                , moviesModel.ReleasedIn.Day
+                ,moviesModel.ReleasedIn.Year),
                 IMDB = moviesModel.IMDB
             };
         }
