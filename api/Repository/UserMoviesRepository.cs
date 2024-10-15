@@ -64,11 +64,6 @@ namespace api.Repository
                     movies = query.IsDecsending ? movies.OrderByDescending(element => element.Directors) : movies.OrderBy(element => element.Directors);
                 }
 
-                if(query.SortBy.Equals("Actor",StringComparison.OrdinalIgnoreCase))
-                {
-                    movies = query.IsDecsending ? movies.OrderByDescending(element => element.Actors) : movies.OrderBy(element => element.Actors);
-                }
-
                 if(query.SortBy.Equals("Country",StringComparison.OrdinalIgnoreCase))
                 {
                     movies = query.IsDecsending ? movies.OrderByDescending(element => element.Country) : movies.OrderBy(element => element.Country);

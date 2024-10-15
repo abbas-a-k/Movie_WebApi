@@ -7,11 +7,11 @@ using api.Models;
 
 namespace api.Mapper
 {
-    public static class DirectorsMapper
+    public static class UserDirectorsMapper
     {
-        public static DirectorsDto ToDirectorsDto(this Directors directorsModel)
+        public static UserDirectorsDto ToUserDirectorsDto(this Directors directorsModel)
         {
-            return new DirectorsDto
+            return new UserDirectorsDto
             {
                 ImageUrl = directorsModel.ImageUrl,
                 Name = directorsModel.Name,
@@ -22,7 +22,8 @@ namespace api.Mapper
                 ,directorsModel.DateOfBirth.Year),
                 Alive = directorsModel.Alive,
                 BirthPlace = directorsModel.BirthPlace,
-                About = directorsModel.About
+                About = directorsModel.About,
+                Movies = directorsModel.Movies.Select(element => element.ToUserActorAndDirectorMoviesDto()).ToList()
             };
         }
     }
