@@ -13,7 +13,7 @@ namespace api.Models
         public string Content { get; set; } = string.Empty;
         public DateTime CreateOn { get; set; } = DateTime.Now;
         [Column(TypeName = "decimal(2,1)")]
-        public decimal Score { get; set; }
+        public decimal Score { get; set; } 
         public string? UserId { get; set; }
         public AppUser? AppUser { get; set; }
         public int? MoviesId { get; set; }
