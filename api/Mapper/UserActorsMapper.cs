@@ -9,9 +9,9 @@ namespace api.Mapper
 {
     public static class ActorsMapper
     {
-        public static ActorsDto ToActorsDto(this Actors actorsModel)
+        public static UserActorsDto ToUserActorsDto(this Actors actorsModel)
         {
-            return new ActorsDto
+            return new UserActorsDto
             {
                 ImageUrl = actorsModel.ImageUrl,
                 Name = actorsModel.Name,
@@ -22,7 +22,8 @@ namespace api.Mapper
                 ,actorsModel.DateOfBirth.Year),
                 Alive = actorsModel.Alive,
                 BirthPlace = actorsModel.BirthPlace,
-                About = actorsModel.About
+                About = actorsModel.About,
+                Movies = actorsModel.Movies.Select(element => element.ToUserActorAndDirectorMoviesDto()).ToList()
             };
         }
     }

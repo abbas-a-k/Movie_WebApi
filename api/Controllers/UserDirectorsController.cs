@@ -22,6 +22,11 @@ namespace api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllForUser([FromQuery] UserDirectorsQueryObject query)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); 
+            }
+            
             var directors = await _directorRepo.GetAllForUserAsync(query);
             var directorsDto = directors.Select(element => element.ToUserDirectorsDto());
             

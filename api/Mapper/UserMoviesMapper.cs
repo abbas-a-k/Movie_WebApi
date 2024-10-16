@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using api.Dto.Movies;
+using api.Dto.UserMovies;
 using api.Models;
 
 namespace api.Mapper
@@ -29,6 +30,22 @@ namespace api.Mapper
                 Director = moviesModel.Directors.Name,
                 Comments = moviesModel.Comments.Select(element => element.ToCommentsDto()).ToList(),
                 Actors = moviesModel.Actors.Select(element => element.Name).ToList()
+            };
+        }
+
+        public static UserActorAndDirectorMoviesDto ToUserActorAndDirectorMoviesDto(this Movies moviesModel)
+        {
+            return new UserActorAndDirectorMoviesDto
+            {
+                Id = moviesModel.Id,
+                Name = moviesModel.Name,
+                Genre = moviesModel.Genre,
+                Country = moviesModel.Country,
+                ReleasedIn = string
+                .Format("{0}/{1}/{2}", moviesModel.ReleasedIn.Month
+                , moviesModel.ReleasedIn.Day
+                ,moviesModel.ReleasedIn.Year),
+                IMDB = moviesModel.IMDB,
             };
         }
     }

@@ -96,8 +96,8 @@ builder.Services.AddAuthentication(options =>
 
 
 
-builder.Services.AddScoped<IDirectorsRepository,DirectorsRepository>();
-builder.Services.AddScoped<IActorsRepository,ActorsRepository>();
+builder.Services.AddScoped<IUserDirectorsRepository,UserDirectorsRepository>();
+builder.Services.AddScoped<IUserActorsRepository,UserActorsRepository>();
 builder.Services.AddScoped<IUserMoviesRepository,UserMoviesRepository>();
 builder.Services.AddScoped<ICommetnsRepository,CommentsRepository>();
 builder.Services.AddScoped<ITokenService,TokenService>();
