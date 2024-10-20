@@ -28,7 +28,7 @@ namespace api.Mapper
                 Math.Round((moviesModel.Comments.Select(element => element.Score).ToList()).Average(),1)
                 :0,
                 Director = moviesModel.Directors.Name,
-                Comments = moviesModel.Comments.Select(element => element.ToCommentsDto()).ToList(),
+                Comments = moviesModel.Comments.Select(element => element.ToUserMoviesComentsDto()).ToList(),
                 Actors = moviesModel.Actors.Select(element => element.Name).ToList()
             };
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Dto.Actors;
 using api.Dto.directors;
+using api.Dto.UserComments;
 using api.Models;
 
 namespace api.Dto.Movies
@@ -18,7 +19,7 @@ namespace api.Dto.Movies
         public decimal IMDB { get; set; }
         public decimal InitialScore { set; get; }
         public string? Director { get; set; }
-        public List<CommentsDto> Comments { get; set; } = new List<CommentsDto>();
+        public List<UserMoviesComentsDto> Comments { get; set; } = new List<UserMoviesComentsDto>();
         public List<string> Actors { get; set; } = new List<string>();
     }
 }

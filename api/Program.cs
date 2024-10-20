@@ -82,8 +82,7 @@ builder.Services.AddAuthentication(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = true,
-        ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidateIssuer = false,
         ValidateAudience = true,
         ValidAudience = builder.Configuration["JWT:Audience"],
         ValidateIssuerSigningKey = true,
@@ -92,6 +91,10 @@ builder.Services.AddAuthentication(options =>
         )
     };
 });
+builder.Services.AddAuthorization(options =>
+{
+        options.AddPolicy("RequireUserRole", policy => policy.RequireRole("User"));
+});
 //JWT Setup end
 
 
@@ -99,7 +102,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<IUserDirectorsRepository,UserDirectorsRepository>();
 builder.Services.AddScoped<IUserActorsRepository,UserActorsRepository>();
 builder.Services.AddScoped<IUserMoviesRepository,UserMoviesRepository>();
-builder.Services.AddScoped<ICommetnsRepository,CommentsRepository>();
+builder.Services.AddScoped<IUserCommetnsRepository,UserCommentsRepository>();
 builder.Services.AddScoped<ITokenService,TokenService>();
 
 var app = builder.Build();

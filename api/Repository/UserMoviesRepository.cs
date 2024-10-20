@@ -20,7 +20,7 @@ namespace api.Repository
         public async Task<List<Movies>> GetAllAsyncForUser(UserMoviesQueryObject query)
         {
             var movies = _context.Movies.Include(element => element.Actors)
-            .Include(element => element.Comments).Include(element => element.Directors).AsQueryable();
+            .Include(element => element.Comments).ThenInclude(element => element.AppUser).Include(element => element.Directors).AsQueryable();
 
             if(!string.IsNullOrWhiteSpace(query.Name))
             {
@@ -87,8 +87,13 @@ namespace api.Repository
         public async Task<Movies?> GetByIdAsyncForUser(int id)
         {
             return await _context.Movies.Include(element => element.Actors)
-            .Include(element => element.Comments).Include(element => element.Directors)
+            .Include(element => element.Comments).ThenInclude(element => element.AppUser).Include(element => element.Directors)
             .FirstOrDefaultAsync(element => element.Id == id);
+        }
+
+        public async Task<bool> MoviesExists(int id)
+        {
+            return await _context.Movies.AnyAsync(element => element.Id == id);
         }
     }
 }

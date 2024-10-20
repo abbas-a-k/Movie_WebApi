@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using api.Helper;
 using api.Interfaces;
 using api.Mapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers

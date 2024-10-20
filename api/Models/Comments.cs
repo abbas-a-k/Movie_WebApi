@@ -16,6 +16,7 @@ namespace api.Models
         public decimal Score { get; set; } 
         public string? UserId { get; set; }
         public AppUser? AppUser { get; set; }
+        public string? AppUserId { get; set; }
         public int? MoviesId { get; set; }
         public Movies? Movies { get; set; }
     }
