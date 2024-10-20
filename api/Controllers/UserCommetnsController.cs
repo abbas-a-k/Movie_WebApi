@@ -66,7 +66,7 @@ namespace api.Controllers
             {
                 return BadRequest("movie does not exist.");
             }
-            
+
             var userName = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(userName);
 
@@ -74,6 +74,34 @@ namespace api.Controllers
             var create = await _commentsRepo.CreateCommentsAsyncForUser(commentModel);
 
             return Ok(create.ToUserCommentsDto());
+        }
+
+        [HttpPut("{commentId:int}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateCommnetForUser([FromRoute] int commentId,[FromBody] UpdateUserCommentsDto commentsDto)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); 
+            }
+
+            var isInRole = User.IsInRole("Admin");
+            if(isInRole)
+            {
+                return Forbid();
+            }
+            
+            var userName = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(userName);
+
+            var comment = await _commentsRepo.UpdateUserCommentsAsyncForUser(commentId,commentsDto.ToUserCommentsFromUpdate(),appUser);
+            if (comment == null)
+            {
+                return NotFound("Comment Not Found");
+            }
+
+            return Ok(comment.ToUserCommentsDto());
+
         }
 
     }

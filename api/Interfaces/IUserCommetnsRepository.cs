@@ -10,5 +10,6 @@ namespace api.Interfaces
     {
         Task<List<Comments>> GetAllasyncForUser(AppUser userName);
         Task<Comments> CreateCommentsAsyncForUser(Comments commentModel);
+        Task<Comments> UpdateUserCommentsAsyncForUser(int commentId , Comments comment , AppUser appUser);
     }
 }

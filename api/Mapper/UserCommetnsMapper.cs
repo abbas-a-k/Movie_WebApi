@@ -47,5 +47,14 @@ namespace api.Mapper
                 Movies = moviesModel
             };
         }
+
+        public static Comments ToUserCommentsFromUpdate (this UpdateUserCommentsDto commentsDto)
+        {
+            return new Comments
+            {
+                Content = commentsDto.content,
+                Score = commentsDto.Score
+            };
+        }
     }
 }

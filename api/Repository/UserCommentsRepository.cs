@@ -35,5 +35,22 @@ namespace api.Repository
             
             return await comment.ToListAsync();
         }
+
+        public async Task<Comments> UpdateUserCommentsAsyncForUser(int commentId, Comments comment, AppUser appUser)
+        {
+            var existingComment = await _context.Comments.Include(element => element.Movies).FirstOrDefaultAsync(element => element.Id == commentId && element.AppUserId == appUser.Id);
+
+            if (existingComment == null)
+            {
+                return null;
+            }
+
+            existingComment.Content = comment.Content;
+            existingComment.Score = comment.Score;
+
+            await _context.SaveChangesAsync();
+
+            return existingComment;
+        }
     }
 }
