@@ -24,6 +24,21 @@ namespace api.Repository
             return commentModel;
         }
 
+        public async Task<Comments?> DeleteUserCommentsAsyncForUser(int commentId, AppUser appUser)
+        {
+            var existingComment = await _context.Comments.Include(element => element.Movies).FirstOrDefaultAsync(element => element.Id == commentId && element.AppUserId == appUser.Id);
+
+            if (existingComment == null)
+            {
+                return null;
+            }
+
+            _context.Comments.Remove(existingComment);
+            await _context.SaveChangesAsync();
+            
+            return existingComment;
+        }
+
         public async Task<List<Comments>> GetAllasyncForUser(AppUser user)
         {
             var comment = _context.Comments.Include(element => element.AppUser).Include(element => element.Movies).Where(element => element.AppUser.UserName == user.UserName);

@@ -53,8 +53,8 @@ namespace api.Controllers
         }
 
 
-        [HttpPost("registeradmin")]
-        public async Task<IActionResult> RegisterAdmin([FromBody] AdminRegisterDto adminRegisterDto)
+        [HttpPost("adminregister")]
+        public async Task<IActionResult> AdminRegister([FromBody] AdminRegisterDto adminRegisterDto)
         {
             try
             {

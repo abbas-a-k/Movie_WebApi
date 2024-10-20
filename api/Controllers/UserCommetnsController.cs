@@ -29,6 +29,7 @@ namespace api.Controllers
             _userManager = userManager;
             _moviesRepo = moviesRepo;
         }
+
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetAllCommentsForUser()
@@ -102,6 +103,28 @@ namespace api.Controllers
 
             return Ok(comment.ToUserCommentsDto());
 
+        }
+        
+        [HttpDelete("{commentId:int}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteCommentForUser([FromRoute] int commentId)
+        {
+            var isInRole = User.IsInRole("Admin");
+            if(isInRole)
+            {
+                return Forbid();
+            }
+
+            var userName = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(userName);
+
+            var comment = await _commentsRepo.DeleteUserCommentsAsyncForUser(commentId,appUser);
+            if (comment == null)
+            {
+                return NotFound("Comment Not Found");
+            }
+
+            return NoContent();
         }
 
     }
