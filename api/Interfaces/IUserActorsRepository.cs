@@ -10,5 +10,6 @@ namespace api.Interfaces
     public interface IUserActorsRepository
     {
         Task<List<Actors>> GetAllAsyncForUser(UserActorsQueryObject query);
+        Task<Actors> GetByIdForUser(int actorId);
     }
 }

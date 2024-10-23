@@ -34,5 +34,22 @@ namespace api.Controllers
             
             return Ok(actorsDto);
         }
+
+        [HttpGet("{actorId:int}")]
+        public async Task<IActionResult> GetByIdForUser([FromRoute] int actorId)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); 
+            }
+
+            var actor = await _actorsRepo.GetByIdForUser(actorId);
+            if(actor == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(actor.ToUserActorsDto());
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace api.Dto.Actors
 {
     public class UserActorsDto
     {
+        public int Id { get; set; }
         public string ImageUrl { set; get; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public int Age { get; set; }

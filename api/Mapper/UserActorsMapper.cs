@@ -13,6 +13,7 @@ namespace api.Mapper
         {
             return new UserActorsDto
             {
+                Id = actorsModel.Id,
                 ImageUrl = actorsModel.ImageUrl,
                 Name = actorsModel.Name,
                 Age = actorsModel.Age,

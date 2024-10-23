@@ -61,5 +61,12 @@ namespace api.Repository
 
             return await actor.ToListAsync();
         }
+
+        public Task<Actors> GetByIdForUser(int actorId)
+        {
+            return _context.Actors
+            .Include(element => element.Movies)
+            .FirstOrDefaultAsync(element => element.Id == actorId);
+        }
     }
 }
