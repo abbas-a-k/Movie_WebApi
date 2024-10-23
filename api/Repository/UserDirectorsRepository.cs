@@ -63,5 +63,12 @@ namespace api.Repository
 
             return await directors.ToListAsync();
         }
+
+        public async Task<Directors> GetByIdAsyncForUser(int directorId)
+        {
+            return await _context.Directors
+            .Include(element => element.Movies)
+            .FirstOrDefaultAsync(element => element.Id == directorId);
+        }
     }
 }

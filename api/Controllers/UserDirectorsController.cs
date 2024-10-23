@@ -6,6 +6,7 @@ using api.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using api.Mapper;
 using api.Helper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace api.Controllers
 {
@@ -20,6 +21,7 @@ namespace api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllForUser([FromQuery] UserDirectorsQueryObject query)
         {
             if(!ModelState.IsValid)
@@ -31,6 +33,24 @@ namespace api.Controllers
             var directorsDto = directors.Select(element => element.ToUserDirectorsDto());
             
             return Ok(directorsDto);
+        }
+
+        [HttpGet("{directorId:int}")]
+        [Authorize]
+        public async Task<IActionResult> GetByIdforUser([FromRoute] int directorId)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); 
+            }
+
+            var director = await _directorRepo.GetByIdAsyncForUser(directorId);
+            if(director == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(director.ToUserDirectorsDto());
         }
     }
 }

@@ -13,6 +13,7 @@ namespace api.Mapper
         {
             return new UserDirectorsDto
             {
+                Id = directorsModel.Id,
                 ImageUrl = directorsModel.ImageUrl,
                 Name = directorsModel.Name,
                 Age = directorsModel.Age,

@@ -10,5 +10,6 @@ namespace api.Interfaces
     public interface IUserDirectorsRepository
     {
         Task<List<Directors>> GetAllForUserAsync(UserDirectorsQueryObject query);
+        Task<Directors> GetByIdAsyncForUser(int directorId);
     }
 }
