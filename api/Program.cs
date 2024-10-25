@@ -97,12 +97,12 @@ builder.Services.AddAuthorization(options =>
 });
 //JWT Setup end
 
-
-
 builder.Services.AddScoped<IUserDirectorsRepository,UserDirectorsRepository>();
 builder.Services.AddScoped<IUserActorsRepository,UserActorsRepository>();
 builder.Services.AddScoped<IUserMoviesRepository,UserMoviesRepository>();
 builder.Services.AddScoped<IUserCommetnsRepository,UserCommentsRepository>();
+builder.Services.AddScoped<IAdminMoviesRepository,AdminMoviesRepository>();
+builder.Services.AddScoped<IAdminDirectorsRepository,AdminDirectorsRepository>();
 builder.Services.AddScoped<ITokenService,TokenService>();
 
 var app = builder.Build();

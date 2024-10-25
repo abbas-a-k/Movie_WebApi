@@ -90,10 +90,5 @@ namespace api.Repository
             .Include(element => element.Comments).ThenInclude(element => element.AppUser).Include(element => element.Directors)
             .FirstOrDefaultAsync(element => element.Id == id);
         }
-
-        public async Task<bool> MoviesExists(int id)
-        {
-            return await _context.Movies.AnyAsync(element => element.Id == id);
-        }
     }
 }

@@ -11,6 +11,5 @@ namespace api.Interfaces
     {
         Task <List<Movies>> GetAllAsyncForUser(UserMoviesQueryObject query);
         Task <Movies?> GetByIdAsyncForUser(int id);
-        Task<bool> MoviesExists(int id);
     }
 }
