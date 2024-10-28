@@ -13,10 +13,10 @@ namespace api.Controllers
     [ApiController]
     [Route("api/admindirector")]
     [Authorize(Roles = "Admin")]
-    public class AdminDirectorController : ControllerBase
+    public class AdminDirectorsController : ControllerBase
     {
         private readonly IAdminDirectorsRepository _adminDirectorRepo;
-        public AdminDirectorController(IAdminDirectorsRepository adminDirectorRepo)
+        public AdminDirectorsController(IAdminDirectorsRepository adminDirectorRepo)
         {
             _adminDirectorRepo = adminDirectorRepo;   
         }
@@ -35,6 +35,7 @@ namespace api.Controllers
 
             return Created();
         }
+        
         [HttpDelete("{directorId:int}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteDirectorForAdmin([FromRoute] int directorId)

@@ -103,6 +103,7 @@ builder.Services.AddScoped<IUserMoviesRepository,UserMoviesRepository>();
 builder.Services.AddScoped<IUserCommetnsRepository,UserCommentsRepository>();
 builder.Services.AddScoped<IAdminMoviesRepository,AdminMoviesRepository>();
 builder.Services.AddScoped<IAdminDirectorsRepository,AdminDirectorsRepository>();
+builder.Services.AddScoped<IAdminActorsRepository,AdminActorsRepository>();
 builder.Services.AddScoped<ITokenService,TokenService>();
 
 var app = builder.Build();

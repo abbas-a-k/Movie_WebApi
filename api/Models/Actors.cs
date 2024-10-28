@@ -15,6 +15,6 @@ namespace api.Models
         public bool Alive { get; set; } = true;
         public string BirthPlace { get; set; } = string.Empty;
         public string About { get; set;} = string.Empty;
-        public List<Movies> Movies { get; set; } = new List<Movies>();
+        public List<ActorsMovies> ActorsMovies { get; set; } = new List<ActorsMovies>();
     }
 }

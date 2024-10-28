@@ -17,7 +17,7 @@ namespace api.Controllers
 {
     [Route("api/comments")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "User")]
     public class UserCommetnsController : ControllerBase
     {
         private readonly IUserCommetnsRepository _commentsRepo;
@@ -31,35 +31,24 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> GetAllCommentsForUser()
         {
-            var isInRole = User.IsInRole("Admin");
-            if(isInRole)
-            {
-                return Forbid();
-            }
-
             var userName = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(userName);
             var comments = await _commentsRepo.GetAllasyncForUser(appUser);
             var commentDto = comments.Select(element => element.ToUserCommentsDto());
+
             return Ok(commentDto);
         }
         
         [HttpPost("{movieId:int}")]
-        [Authorize]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> CreateCommentForUser([FromRoute]int movieId , CreateUserCommentDto commentDto)
         {
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState); 
-            }
-
-            var isInRole = User.IsInRole("Admin");
-            if(isInRole)
-            {
-                return Forbid();
             }
             
             var moviesModel = await _moviesRepo.GetByIdAsyncForUser(movieId);
@@ -78,18 +67,12 @@ namespace api.Controllers
         }
 
         [HttpPut("{commentId:int}")]
-        [Authorize]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> UpdateCommnetForUser([FromRoute] int commentId,[FromBody] UpdateUserCommentsDto commentsDto)
         {
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState); 
-            }
-
-            var isInRole = User.IsInRole("Admin");
-            if(isInRole)
-            {
-                return Forbid();
             }
             
             var userName = User.GetUsername();
@@ -106,15 +89,9 @@ namespace api.Controllers
         }
         
         [HttpDelete("{commentId:int}")]
-        [Authorize]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> DeleteCommentForUser([FromRoute] int commentId)
         {
-            var isInRole = User.IsInRole("Admin");
-            if(isInRole)
-            {
-                return Forbid();
-            }
-
             var userName = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(userName);
 

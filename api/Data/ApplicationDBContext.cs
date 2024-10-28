@@ -19,6 +19,7 @@ namespace api.Data
         public DbSet<Movies> Movies { get; set; }
         public DbSet<Comments> Comments { get; set; }
         public DbSet<Actors> Actors { get; set; }
+        public DbSet<ActorsMovies> ActorsMovies { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Movies>()
@@ -30,6 +31,11 @@ namespace api.Data
             base.OnModelCreating(builder);
             List<IdentityRole> roles = new List<IdentityRole>
             {
+                new IdentityRole
+                {
+                    Name = "SuperAdmin",
+                    NormalizedName = "SUPERADMIN"
+                },
                 new IdentityRole
                 {
                     Name = "Admin",

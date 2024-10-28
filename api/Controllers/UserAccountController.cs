@@ -6,6 +6,7 @@ using api.Dto.Account.User;
 using api.Dto.User;
 using api.Interfaces;
 using api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ namespace api.Controllers
 {
     [Route("api/useraccount")]
     [ApiController]
+    [AllowAnonymous]
     public class UserAccountController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
@@ -29,6 +31,7 @@ namespace api.Controllers
 
 
         [HttpPost("userlogin")]
+        [AllowAnonymous]
         public async Task<IActionResult> UserLogin(UserLoginDto loginDto)
         {
             if (!ModelState.IsValid)
@@ -55,6 +58,7 @@ namespace api.Controllers
 
 
         [HttpPost("userregister")]
+        [AllowAnonymous]
         public async Task<IActionResult> UserRegister([FromBody] UserRegisterDto registerDto)
         {
             try

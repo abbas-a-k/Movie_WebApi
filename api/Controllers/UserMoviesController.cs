@@ -13,6 +13,7 @@ namespace api.Controllers
 {
     [Route("api/movies")]
     [ApiController]
+    [Authorize]
     public class UserMoviesController : ControllerBase
     {
         private readonly IUserMoviesRepository _moviesRepo;
@@ -21,6 +22,7 @@ namespace api.Controllers
             _moviesRepo = moviesRepo;
         }
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllForUser([FromQuery] UserMoviesQueryObject query)
         {
             if(!ModelState.IsValid)
@@ -35,6 +37,7 @@ namespace api.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> GetByIdForUser([FromRoute] int id)
         {
             if(!ModelState.IsValid)
