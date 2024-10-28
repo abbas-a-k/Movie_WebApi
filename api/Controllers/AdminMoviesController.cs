@@ -25,24 +25,6 @@ namespace api.Controllers
             _adminDirectorRepo = adminDirectorRepo;
         }
 
-        [HttpDelete("{movieId:int}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteMoviesForAdmin([FromRoute]int movieId)
-        {
-            if(!ModelState.IsValid)
-            {
-                return BadRequest(ModelState); 
-            }
-
-            if(!await _adminMoviesRepo.MoviesExists(movieId))
-            {
-                return NotFound("Movie not found");
-            }
-            
-            var movie = await _adminMoviesRepo.DeleteMoviesForAdmin(movieId);
-            return NoContent();
-        }
-
         [HttpPost("createmovie")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateMoviesForAdmin([FromBody] CreateNewMovieDto movieDto)
@@ -60,7 +42,25 @@ namespace api.Controllers
             var movieModel = movieDto.ToMoviesFromCreteNewMovieDto();
             var create = await _adminMoviesRepo.CreateMoviesForAdmin(movieModel);
 
-            return Ok(create);
+            return Created();
+        }
+
+        [HttpDelete("{movieId:int}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteMoviesForAdmin([FromRoute]int movieId)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); 
+            }
+
+            if(!await _adminMoviesRepo.MoviesExists(movieId))
+            {
+                return NotFound("Movie not found");
+            }
+            
+            var movie = await _adminMoviesRepo.DeleteMoviesForAdmin(movieId);
+            return NoContent();
         }
     }
 }

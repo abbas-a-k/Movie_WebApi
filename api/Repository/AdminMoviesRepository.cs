@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using api.Data;
 using api.Interfaces;
@@ -26,10 +27,9 @@ namespace api.Repository
 
         public async Task<Movies> DeleteMoviesForAdmin(int movieId)
         {
-            var comments = await _context.Comments.Where(element => element.MoviesId == movieId).ToListAsync();
-            var movie = await _context.Movies.FirstOrDefaultAsync(element => element.Id == movieId);
+            var moviesModel = await _context.Movies.Include(element => element.Comments).ToListAsync();
+            var movie = moviesModel.FirstOrDefault(element => element.Id == movieId);
 
-            _context.Comments.RemoveRange(comments);
             _context.Movies.Remove(movie);
 
             await _context.SaveChangesAsync();
