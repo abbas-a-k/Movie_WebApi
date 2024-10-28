@@ -22,10 +22,9 @@ namespace api.Data
         public DbSet<ActorsMovies> ActorsMovies { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Movies>()
-            .HasMany(e => e.Actors)
-            .WithMany(e => e.Movies);
-
+            builder.Entity<ActorsMovies>(element => element.HasKey(key => new {key.ActorsId,key.MoviesId}));
+            builder.Entity<ActorsMovies>().HasOne(one => one.Actors).WithMany(many => many.ActorsMovies).HasForeignKey(fkey => fkey.ActorsId);
+            builder.Entity<ActorsMovies>().HasOne(one => one.Movies).WithMany(many => many.ActorsMovies).HasForeignKey(fkey => fkey.MoviesId);
 
             //jWT 
             base.OnModelCreating(builder);
@@ -48,9 +47,7 @@ namespace api.Data
                 },
             };
             builder.Entity<IdentityRole>().HasData(roles);
-            //JWT end 
-
-            
+            //JWT end  
         }
     }
 }
