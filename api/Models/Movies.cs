@@ -9,12 +9,14 @@ namespace api.Models
     public class Movies
     {
         public int Id { get; set; }
+        public string ImageUrl { set; get; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string Genre { get; set; } = string.Empty;
         public string Country { get; set;} = string.Empty;
         public DateTime ReleasedIn { get; set; }
         [Column(TypeName = "decimal(2,1)")]
         public decimal IMDB { get; set; }
+        public string About { get; set;} = string.Empty;
         public int? DirectorsId { set; get; }
         public Directors? Directors { get; set;}
         public List<Comments> Comments { get; set; } = new List<Comments>();
