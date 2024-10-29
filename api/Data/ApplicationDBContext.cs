@@ -19,12 +19,15 @@ namespace api.Data
         public DbSet<Movies> Movies { get; set; }
         public DbSet<Comments> Comments { get; set; }
         public DbSet<Actors> Actors { get; set; }
+        public DbSet<ReplyComments> ReplyComments { get; set; }
         public DbSet<ActorsMovies> ActorsMovies { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ActorsMovies>(element => element.HasKey(key => new {key.ActorsId,key.MoviesId}));
             builder.Entity<ActorsMovies>().HasOne(one => one.Actors).WithMany(many => many.ActorsMovies).HasForeignKey(fkey => fkey.ActorsId);
             builder.Entity<ActorsMovies>().HasOne(one => one.Movies).WithMany(many => many.ActorsMovies).HasForeignKey(fkey => fkey.MoviesId);
+
+            builder.Entity<Comments>().HasOne(one => one.ReplyComments).WithOne(wone => wone.Comments).HasForeignKey<ReplyComments>(fkey => fkey.CommentsId).IsRequired();
 
             //jWT 
             base.OnModelCreating(builder);

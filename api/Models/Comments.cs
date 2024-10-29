@@ -18,5 +18,6 @@ namespace api.Models
         public AppUser? AppUser { get; set; }
         public int? MoviesId { get; set; }
         public Movies? Movies { get; set; }
+        public ReplyComments? ReplyComments { get; set; }
     }
 }
