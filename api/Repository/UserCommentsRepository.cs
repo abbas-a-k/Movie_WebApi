@@ -6,6 +6,7 @@ using api.Data;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace api.Repository
 {
@@ -41,7 +42,7 @@ namespace api.Repository
 
         public async Task<List<Comments>> GetAllasyncForUser(AppUser user)
         {
-            var comment = _context.Comments.Include(element => element.AppUser).Include(element => element.Movies).Where(element => element.AppUser.UserName == user.UserName);
+            var comment = _context.Comments.Include(element => element.AppUser).Include(element => element.Movies).Include(element => element.ReplyComments).Where(element => element.AppUser.UserName == user.UserName);
 
             if(comment == null)
             {
@@ -53,7 +54,7 @@ namespace api.Repository
 
         public async Task<Comments> UpdateUserCommentsAsyncForUser(int commentId, Comments comment, AppUser appUser)
         {
-            var existingComment = await _context.Comments.Include(element => element.Movies).FirstOrDefaultAsync(element => element.Id == commentId && element.AppUserId == appUser.Id);
+            var existingComment = await _context.Comments.Include(element => element.Movies).Include(element => element.ReplyComments).FirstOrDefaultAsync(element => element.Id == commentId && element.AppUserId == appUser.Id);
 
             if (existingComment == null)
             {

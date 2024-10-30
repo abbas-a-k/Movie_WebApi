@@ -19,8 +19,11 @@ namespace api.Repository
         }
         public async Task<List<Movies>> GetAllAsyncForUser(UserMoviesQueryObject query)
         {
-            var movies = _context.Movies.Include(element => element.Actors)
-            .Include(element => element.Comments).ThenInclude(element => element.AppUser).Include(element => element.Directors).AsQueryable();
+            var movies = _context.Movies
+            .Include(element => element.ActorsMovies).ThenInclude(element => element.Actors)
+            .Include(element => element.Comments).ThenInclude(element => element.ReplyComments)
+            .Include(element => element.Comments).ThenInclude(element => element.AppUser)
+            .Include(element => element.Directors).AsQueryable();
 
             if(!string.IsNullOrWhiteSpace(query.Name))
             {
@@ -39,7 +42,7 @@ namespace api.Repository
 
             if(!string.IsNullOrWhiteSpace(query.Actor))
             {
-                movies = movies.Where(element => element.Actors.Select(x => x.Name).ToList().Contains(query.Actor));
+                movies = movies.Where(element => element.ActorsMovies.Select(x => x.Actors.Name).ToList().Contains(query.Actor));
             }
 
             if(!string.IsNullOrWhiteSpace(query.Country))
@@ -86,8 +89,11 @@ namespace api.Repository
 
         public async Task<Movies?> GetByIdAsyncForUser(int id)
         {
-            return await _context.Movies.Include(element => element.Actors)
-            .Include(element => element.Comments).ThenInclude(element => element.AppUser).Include(element => element.Directors)
+            return await _context.Movies
+            .Include(element => element.ActorsMovies).ThenInclude(element => element.Actors)
+            .Include(element => element.Comments).ThenInclude(element => element.ReplyComments)
+            .Include(element => element.Comments).ThenInclude(element => element.AppUser)
+            .Include(element => element.Directors)
             .FirstOrDefaultAsync(element => element.Id == id);
         }
     }

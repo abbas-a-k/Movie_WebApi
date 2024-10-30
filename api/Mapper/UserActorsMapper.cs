@@ -24,7 +24,7 @@ namespace api.Mapper
                 Alive = actorsModel.Alive,
                 BirthPlace = actorsModel.BirthPlace,
                 About = actorsModel.About,
-                Movies = actorsModel.Movies.Select(element => element.ToUserActorAndDirectorMoviesDto()).ToList()
+                Movies = actorsModel.ActorsMovies.Select(element => element.Movies.ToUserActorAndDirectorMoviesDto()).ToList()
             };
         }
     }

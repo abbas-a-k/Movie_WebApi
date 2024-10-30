@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Dto.ReplyComments;
 
 namespace api.Dto
 {
@@ -13,5 +14,6 @@ namespace api.Dto
         public string MovieName { get; set; } = string.Empty;
         public string Content { get; set; } = string.Empty;
         public decimal Score { get; set; }
+        public UserCommentsReplyCommentsDto ReplyComments { get; set; } = new UserCommentsReplyCommentsDto();
     }
 }

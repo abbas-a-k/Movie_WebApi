@@ -12,6 +12,7 @@ namespace api.Controllers
 {
     [Route("api/directors")]
     [ApiController]
+    [Authorize]
     public class UserDirectorsController : ControllerBase
     {
         private readonly IUserDirectorsRepository _directorRepo;

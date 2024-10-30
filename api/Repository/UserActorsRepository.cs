@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using api.Data;
 using api.Helper;
@@ -19,7 +20,7 @@ namespace api.Repository
         }
         public async Task<List<Actors>> GetAllAsyncForUser(UserActorsQueryObject query)
         {
-            var actor = _context.Actors.Include(element => element.Movies).AsQueryable();
+            var actor = _context.Actors.Include(element => element.ActorsMovies).ThenInclude(element => element.Movies).AsQueryable();
             
             if(!string.IsNullOrWhiteSpace(query.Name))
             {
@@ -64,8 +65,8 @@ namespace api.Repository
 
         public Task<Actors> GetByIdForUser(int actorId)
         {
-            return _context.Actors
-            .Include(element => element.Movies)
+            return _context.Actors.Include(element => element.ActorsMovies)
+            .ThenInclude(element => element.Movies)
             .FirstOrDefaultAsync(element => element.Id == actorId);
         }
     }

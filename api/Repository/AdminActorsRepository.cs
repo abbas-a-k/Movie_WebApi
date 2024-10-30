@@ -32,11 +32,8 @@ namespace api.Repository
 
         public async Task<List<Actors>> AddActorToMovieForAdmin(int actorId, int movieId)
         {
-            var movieModel = await _context.Movies.Include(element => element.Actors).FirstOrDefaultAsync(element => element.Id == movieId);
+            var movieModel = await _context.Movies.Include(element => element.ActorsMovies).FirstOrDefaultAsync(element => element.Id == movieId);
             var actorModel = await _context.Actors.Where(element => element.Id == actorId).ToListAsync();
-            movieModel.Actors = actorModel;
-
-            await _context.SaveChangesAsync();
 
             return actorModel;
         }

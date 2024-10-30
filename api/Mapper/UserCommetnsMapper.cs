@@ -19,7 +19,8 @@ namespace api.Mapper
                 MovieId = commentsModel.Movies.Id,
                 MovieName = commentsModel.Movies.Name,
                 Content = commentsModel.Content,
-                Score = commentsModel.Score     
+                Score = commentsModel.Score,
+                ReplyComments = commentsModel.ReplyComments.ToUserCommentsReplyCommentsDto()
             };
         }
         
@@ -31,7 +32,8 @@ namespace api.Mapper
                 MovieId = commentsModel.Movies.Id,
                 MovieName = commentsModel.Movies.Name,
                 Content = commentsModel.Content,
-                Score = commentsModel.Score   
+                Score = commentsModel.Score,
+                ReplyComments = commentsModel.ReplyComments.ToUserCommentsReplyCommentsDto()   
             };
         }
 
@@ -39,7 +41,6 @@ namespace api.Mapper
         {
             return new Comments
             {
-                UserId = appUser.Id,
                 AppUserId = appUser.Id,
                 MoviesId = moviesModel.Id,
                 Content = commentDto.content,

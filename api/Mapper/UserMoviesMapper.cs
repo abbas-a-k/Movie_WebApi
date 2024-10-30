@@ -16,6 +16,31 @@ namespace api.Mapper
             return new UserMoviesDto
             {
                 Id = moviesModel.Id,
+                ImageUrl = moviesModel.ImageUrl,
+                Name = moviesModel.Name,
+                Genre = moviesModel.Genre,
+                Country = moviesModel.Country,
+                ReleasedIn = string
+                .Format("{0}/{1}/{2}", moviesModel.ReleasedIn.Month
+                , moviesModel.ReleasedIn.Day
+                ,moviesModel.ReleasedIn.Year),
+                IMDB = moviesModel.IMDB,
+                About = moviesModel.About,
+                InitialScore = (moviesModel.Comments.Select(element => element.Score).ToList()).Count>0 ? 
+                Math.Round((moviesModel.Comments.Select(element => element.Score).ToList()).Average(),1)
+                :0,
+                Director = moviesModel.Directors.Name,
+                Comments = moviesModel.Comments.Select(element => element.ToUserMoviesComentsDto()).ToList(),
+                Actors = moviesModel.ActorsMovies.Select(element => element.Actors.Name).ToList()
+            };
+        }
+
+        public static UserActorAndDirectorMoviesDto ToUserActorAndDirectorMoviesDto(this Movies moviesModel)
+        {
+            return new UserActorAndDirectorMoviesDto
+            {
+                Id = moviesModel.Id,
+                ImageUrl = moviesModel.ImageUrl,
                 Name = moviesModel.Name,
                 Genre = moviesModel.Genre,
                 Country = moviesModel.Country,
@@ -27,25 +52,7 @@ namespace api.Mapper
                 InitialScore = (moviesModel.Comments.Select(element => element.Score).ToList()).Count>0 ? 
                 Math.Round((moviesModel.Comments.Select(element => element.Score).ToList()).Average(),1)
                 :0,
-                Director = moviesModel.Directors.Name,
-                Comments = moviesModel.Comments.Select(element => element.ToUserMoviesComentsDto()).ToList(),
-                Actors = moviesModel.Actors.Select(element => element.Name).ToList()
-            };
-        }
-
-        public static UserActorAndDirectorMoviesDto ToUserActorAndDirectorMoviesDto(this Movies moviesModel)
-        {
-            return new UserActorAndDirectorMoviesDto
-            {
-                Id = moviesModel.Id,
-                Name = moviesModel.Name,
-                Genre = moviesModel.Genre,
-                Country = moviesModel.Country,
-                ReleasedIn = string
-                .Format("{0}/{1}/{2}", moviesModel.ReleasedIn.Month
-                , moviesModel.ReleasedIn.Day
-                ,moviesModel.ReleasedIn.Year),
-                IMDB = moviesModel.IMDB,
+                About = moviesModel.About
             };
         }
     }

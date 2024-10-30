@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.Helper;
 using api.Interfaces;
 using api.Mapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Identity.Client;
@@ -13,6 +14,7 @@ namespace api.Controllers
 {
     [Route("api/actors")]
     [ApiController]
+    [Authorize]
     public class UserActorsController : ControllerBase
     {
         private readonly IUserActorsRepository _actorsRepo;
@@ -22,6 +24,7 @@ namespace api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllForUser([FromQuery] UserActorsQueryObject query)
         {
             if(!ModelState.IsValid)
@@ -36,6 +39,7 @@ namespace api.Controllers
         }
 
         [HttpGet("{actorId:int}")]
+        [Authorize]
         public async Task<IActionResult> GetByIdForUser([FromRoute] int actorId)
         {
             if(!ModelState.IsValid)
