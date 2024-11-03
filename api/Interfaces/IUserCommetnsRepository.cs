@@ -12,5 +12,7 @@ namespace api.Interfaces
         Task<Comments> CreateCommentsAsyncForUser(Comments commentModel);
         Task<Comments?> UpdateUserCommentsAsyncForUser(int commentId , Comments comment , AppUser appUser);
         Task<Comments?> DeleteUserCommentsAsyncForUser(int commentId,AppUser appUser);
+        Task<bool> CommentsExistsForAdmin(int commentsId);
+        Task<bool> CommentsHasReplyCommentsForAdmin(int commentsId);
     }
 }

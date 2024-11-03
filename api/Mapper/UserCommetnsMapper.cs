@@ -20,7 +20,7 @@ namespace api.Mapper
                 MovieName = commentsModel.Movies.Name,
                 Content = commentsModel.Content,
                 Score = commentsModel.Score,
-                ReplyComments = commentsModel.ReplyComments.ToUserCommentsReplyCommentsDto()
+                ReplyComments = commentsModel.ReplyComments.ToUserCommentsReplyCommentsDto()   
             };
         }
         
@@ -55,6 +55,21 @@ namespace api.Mapper
             {
                 Content = commentsDto.content,
                 Score = commentsDto.Score
+            };
+        }
+
+        public static AdminUserCommentsDto ToAdminUserCommentsDto(this Comments commentsModel)
+        {
+            return new AdminUserCommentsDto
+            {
+                CommnetId = commentsModel.Id,
+                AppUserId = commentsModel.AppUserId,
+                UserName = commentsModel.AppUser.UserName,
+                MoviesId = (int)commentsModel.MoviesId,
+                MovieName = commentsModel.Movies.Name,
+                Content = commentsModel.Content,
+                CreateOn = commentsModel.CreateOn,
+                Score = commentsModel.Score
             };
         }
     }

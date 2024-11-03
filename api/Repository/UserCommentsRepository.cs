@@ -18,6 +18,16 @@ namespace api.Repository
             _context = contex;
         }
 
+        public async Task<bool> CommentsExistsForAdmin(int commentsId)
+        {
+            return await _context.Comments.AnyAsync(element => element.Id == commentsId);
+        }
+
+        public async Task<bool> CommentsHasReplyCommentsForAdmin(int commentsId)
+        {
+            return await _context.Comments.AnyAsync(element => element.Id == commentsId && element.ReplyComments != null);
+        }
+
         public async Task<Comments> CreateCommentsAsyncForUser(Comments commentModel)
         {
             await _context.Comments.AddAsync(commentModel);
