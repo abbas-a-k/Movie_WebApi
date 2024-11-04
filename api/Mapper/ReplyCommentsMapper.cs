@@ -38,5 +38,15 @@ namespace api.Mapper
                 CommentsId = commentsId
             };
         }
+
+        public static AdminCommentsReplyCommentsDto ToAdminCommentsReplyCommentsDto(this ReplyComments replyCommentsModel)
+        {
+            return new AdminCommentsReplyCommentsDto
+            {
+                Id = replyCommentsModel.Id,
+                Content = replyCommentsModel.Content,
+                CreateOn = replyCommentsModel.CreateOn
+            };
+        }
     }
 }

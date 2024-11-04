@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.Dto.ReplyComments;
 using api.Interfaces;
 using api.Mapper;
+using api.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,11 +17,11 @@ namespace api.Controllers
     public class ReplyCommentsController : ControllerBase
     {
         private readonly IReplyCommentsRepository _replyCommentsRepo;
-        private readonly IUserCommetnsRepository _userCommentsRepo;
-        public ReplyCommentsController(IReplyCommentsRepository replyCommentsRepo, IUserCommetnsRepository userCommentsRepo)
+        private readonly AdminCommentsRepository _adminCommentsRepo;
+        public ReplyCommentsController(IReplyCommentsRepository replyCommentsRepo, AdminCommentsRepository adminCommentsRepo)
         {
             _replyCommentsRepo = replyCommentsRepo;
-            _userCommentsRepo = userCommentsRepo;
+            _adminCommentsRepo = adminCommentsRepo;
         }
         
         [HttpGet]
@@ -62,7 +63,7 @@ namespace api.Controllers
                 return BadRequest(ModelState); 
             }
 
-            if(!await _userCommentsRepo.CommentsExistsForAdmin(commentsId))
+            if(!await _adminCommentsRepo.CommentsExistsForAdmin(commentsId))
             {
                 return NotFound("Usercomment Not Found");
             }
@@ -82,12 +83,12 @@ namespace api.Controllers
                 return BadRequest(ModelState); 
             }
 
-            if(!await _userCommentsRepo.CommentsExistsForAdmin(commentsId))
+            if(!await _adminCommentsRepo.CommentsExistsForAdmin(commentsId))
             {
                 return NotFound("Usercomment Not Found");
             }
 
-            if(await _userCommentsRepo.CommentsHasReplyCommentsForAdmin(commentsId))
+            if(await _adminCommentsRepo.CommentsHasReplyCommentsForAdmin(commentsId))
             {
                 return BadRequest("The comment has a replycomment");
             }
