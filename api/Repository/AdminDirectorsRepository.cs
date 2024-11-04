@@ -27,15 +27,33 @@ namespace api.Repository
 
         public async Task<Directors> DeleteDirectorsForAdmin(int directorId)
         {
-            var directorsModel = await _context.Directors.Include(element => element.Movies).ThenInclude(element => element.Comments).ToListAsync();
-            var director = directorsModel.FirstOrDefault(element => element.Id == directorId);
-            var movies = director.Movies.ToList();
-            
-            _context.Movies.RemoveRange(movies);
-            _context.Directors.Remove(director);
+            var directorModel = await _context.Directors
+            .Include(element => element.Movies)
+            .ThenInclude(element => element.Comments)
+            .ThenInclude(element => element.ReplyComments)
+            .Include(element => element.Movies)
+            .ThenInclude(element => element.ActorsMovies)
+            .FirstOrDefaultAsync(element => element.Id == directorId);
 
-            await _context.SaveChangesAsync();
-            return director;
+            foreach (var movie in directorModel.Movies)
+            {
+                foreach (var comment in movie.Comments)
+                {
+                    _context.Comments.Remove(comment);
+                } 
+                  
+                foreach (var actorMovie in movie.ActorsMovies)
+                {
+                    _context.ActorsMovies.Remove(actorMovie);
+                }
+            }
+
+            _context.Movies.RemoveRange(directorModel.Movies);  
+            _context.Directors.Remove(directorModel);   
+
+            await _context.SaveChangesAsync(); 
+
+            return directorModel;
         }
 
         public async Task<bool> DirectorsExists(int directorId)

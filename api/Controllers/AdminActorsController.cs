@@ -38,7 +38,7 @@ namespace api.Controllers
             return Created();
         }
 
-        [HttpPost("addactortomovie")]
+        [HttpPost("addactormovie")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddActorToMovieForAdmin(int actorId, int movieId)
         {
@@ -57,6 +57,11 @@ namespace api.Controllers
                 return NotFound("Movie not found");
             }
 
+            if(await _adminActorsRepo.ActorsMoviesExists(actorId,movieId))
+            {
+                return BadRequest("There is an actor in the movie");
+            }
+            
             var actorModel = _adminActorsRepo.AddActorToMovieForAdmin(actorId,movieId);
 
             return Ok();
@@ -77,6 +82,34 @@ namespace api.Controllers
             }
 
             var actorModel = await _adminActorsRepo.DeleteActorForAdmin(actorId);
+
+            return NoContent();
+        }
+        [HttpDelete("deleteactormovie")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteActorFromMovieForAdmin(int actorId, int movieId)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); 
+            }
+
+            if(!await _adminActorsRepo.ActorExists(actorId))
+            {
+                return NotFound("Actor not found");
+            }
+
+            if(!await _adminMoviesRepo.MoviesExists(movieId))
+            {
+                return NotFound("Movie not found");
+            }
+
+            if(!await _adminActorsRepo.ActorsMoviesExists(actorId,movieId))
+            {
+                return NotFound("There is not an actor in the movie");
+            }
+
+            var actorMovie = await _adminActorsRepo.DeleteActorMovieForAdmin(actorId,movieId);
 
             return NoContent();
         }

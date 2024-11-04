@@ -30,12 +30,18 @@ namespace api.Repository
             return await _context.Actors.AnyAsync(element => element.Id == actorId);
         }
 
-        public async Task<List<Actors>> AddActorToMovieForAdmin(int actorId, int movieId)
+        public async Task<ActorsMovies> AddActorToMovieForAdmin(int actorId, int movieId)
         {
-            var movieModel = await _context.Movies.Include(element => element.ActorsMovies).FirstOrDefaultAsync(element => element.Id == movieId);
-            var actorModel = await _context.Actors.Where(element => element.Id == actorId).ToListAsync();
+            var actorsMoviesModel = new ActorsMovies 
+            {
+                ActorsId = actorId,
+                MoviesId = movieId
+            };
 
-            return actorModel;
+            await _context.ActorsMovies.AddAsync(actorsMoviesModel);
+            await _context.SaveChangesAsync();
+
+            return actorsMoviesModel;
         }
 
         public async Task<Actors> DeleteActorForAdmin(int actorid)
@@ -46,6 +52,22 @@ namespace api.Repository
             await _context.SaveChangesAsync();
 
             return actorModel;
+        }
+
+        public async Task<bool> ActorsMoviesExists(int actorid, int movieId)
+        {
+            return await _context.ActorsMovies.AnyAsync(element => element.ActorsId == actorid && element.MoviesId == movieId);
+        }
+
+        public async Task<ActorsMovies> DeleteActorMovieForAdmin(int actorid, int movieId)
+        {
+            var actorsMoviesModel = await _context.ActorsMovies
+            .FirstOrDefaultAsync(element => element.ActorsId == actorid && element.MoviesId == movieId);
+
+            _context.Remove(actorsMoviesModel);
+            await _context.SaveChangesAsync();
+
+            return actorsMoviesModel;
         }
     }
 }

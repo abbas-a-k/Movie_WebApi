@@ -9,8 +9,10 @@ namespace api.Interfaces
     public interface IAdminActorsRepository 
     {
         Task<Actors> CreateActorsForAdmin(Actors actorModel);
-        Task<List<Actors>> AddActorToMovieForAdmin(int actorid,int movieId);
+        Task<ActorsMovies> AddActorToMovieForAdmin(int actorid,int movieId);
         Task<Actors> DeleteActorForAdmin(int actorid);
+        Task<ActorsMovies> DeleteActorMovieForAdmin(int actorid,int movieId);
         Task<bool> ActorExists(int actorId);
+        Task<bool> ActorsMoviesExists(int actorid,int movieId);
     }
 }

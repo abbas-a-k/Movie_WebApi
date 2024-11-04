@@ -14,6 +14,8 @@ namespace api.Mapper
             return new Movies
             {
                 Name = movieDto.Name,
+                ImageUrl = movieDto.ImageUrl,
+                About = movieDto.About,
                 Genre = movieDto.Genre,
                 Country = movieDto.Country,
                 ReleasedIn = (DateTime)movieDto.ReleasedIn,
