@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.Dto.Admin;
 using api.Interfaces;
 using api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace api.Controllers
 {
     [Route("api/adminaccount")]
     [ApiController]
+    [AllowAnonymous]
     public class AdminAccountController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
@@ -27,10 +29,12 @@ namespace api.Controllers
 
 
         [HttpPost("adminlogin")]
+        [AllowAnonymous]
         public async Task<IActionResult> AdminLogin(AdminLoginDto adminLoginDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             var admin = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == adminLoginDto.Username.ToLower());
 
             if (admin == null ) return Unauthorized("Invalid username!");
@@ -54,12 +58,19 @@ namespace api.Controllers
 
 
         [HttpPost("adminregister")]
-        public async Task<IActionResult> AdminRegister([FromBody] AdminRegisterDto adminRegisterDto)
+        [AllowAnonymous]
+        public async Task<IActionResult> AdminRegister([FromBody] AdminRegisterDto adminRegisterDto, string Password)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
+
+
+                if(Password != "1234")
+                {
+                    return Forbid();
+                }
 
                 var admin = new AppUser
                 {
